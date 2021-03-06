@@ -1,0 +1,4 @@
+include ':libcomplier'
+include ':libannotation'
+include ':app'
+rootProject.name = "android_ppjoke"
