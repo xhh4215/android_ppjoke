@@ -1,4 +1,4 @@
-package xh.org.video.android_ppjoke.ui.notifications
+package xh.org.video.android_ppjoke.ui.find
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,10 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import xh.org.video.android_ppjoke.R
 import xh.org.video.libannotation.FragmentDestination
 
-@FragmentDestination(pageUrl = "main/tabs/notification" ,isStart = false)
-class NotificationsFragment : Fragment() {
+@FragmentDestination(pageUrl = "main/tabs/find" ,isStart = false)
+class FindFragment : Fragment() {
 
-    private lateinit var notificationsViewModel: NotificationsViewModel
+    private lateinit var notificationsViewModel: FindViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -22,7 +22,7 @@ class NotificationsFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         notificationsViewModel =
-                ViewModelProvider(this).get(NotificationsViewModel::class.java)
+                ViewModelProvider(this).get(FindViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_notifications, container, false)
         val textView: TextView = root.findViewById(R.id.text_notifications)
         notificationsViewModel.text.observe(viewLifecycleOwner, Observer {

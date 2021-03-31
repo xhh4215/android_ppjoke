@@ -107,19 +107,19 @@ class AnnotationProcessor : AbstractProcessor() {
             var pageUrl = ""
             val id = abs(typeElement.hashCode())
             val clazzName = typeElement.qualifiedName.toString()
-            var needLogin = false
+            var isLogin = false
             var isStart = false
             var isFragment = false
 
             val annotation = typeElement.getAnnotation(annotationClass)
             if (annotation is ActivityDestination) {
                 pageUrl = annotation.pageUrl
-                needLogin = annotation.isLogin
+                isLogin = annotation.isLogin
                 isStart = annotation.isStart
                 isFragment = false
             } else if (annotation is FragmentDestination) {
                 pageUrl = annotation.pageUrl
-                needLogin = annotation.isLogin
+                isLogin = annotation.isLogin
                 isStart = annotation.isStart
                 isFragment = true
             }
@@ -129,7 +129,7 @@ class AnnotationProcessor : AbstractProcessor() {
                 val jsonObject = JSONObject()
                 jsonObject["id"] = id
                 jsonObject["pageUrl"] = pageUrl
-                jsonObject["needLogin"] = needLogin
+                jsonObject["isLogin"] = isLogin
                 jsonObject["isStart"] = isStart
                 jsonObject["clazzName"] = clazzName
                 jsonObject["isFragment"] = isFragment

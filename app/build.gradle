@@ -2,11 +2,21 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'kotlin-noarg'
+    id 'kotlin-allopen'
+
 }
 
+noArg {
+    annotation("xh.org.video.android_ppjoke.annotations.PoKo")
+}
+allOpen {
+    annotation("xh.org.video.android_ppjoke.annotations.PoKo")
+}
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
+
 
     defaultConfig {
         applicationId "xh.org.video.android_ppjoke"
@@ -51,7 +61,10 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
     implementation project(":libannotation")
+    implementation project(":common")
     kapt project(":libcomplier")
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.alibaba:fastjson:1.2.59'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

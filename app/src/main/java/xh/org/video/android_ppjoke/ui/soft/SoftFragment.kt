@@ -1,4 +1,4 @@
-package xh.org.video.android_ppjoke.ui.dashboard
+package xh.org.video.android_ppjoke.ui.soft
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,10 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import xh.org.video.android_ppjoke.R
 import xh.org.video.libannotation.FragmentDestination
 
-@FragmentDestination(pageUrl = "main/tabs/dashboard", isStart = false)
-class DashboardFragment : Fragment() {
+@FragmentDestination(pageUrl = "main/tabs/sofa", isStart = false)
+class SoftFragment : Fragment() {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var dashboardViewModel: SoftViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,7 +22,7 @@ class DashboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
+            ViewModelProvider(this).get(SoftViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
         val textView: TextView = root.findViewById(R.id.text_dashboard)
         dashboardViewModel.text.observe(viewLifecycleOwner, Observer {

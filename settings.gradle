@@ -1,3 +1,4 @@
+include ':common'
 include ':libcomplier'
 include ':libannotation'
 include ':app'
