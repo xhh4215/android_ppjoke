@@ -1,33 +1,57 @@
 package xh.org.video.android_ppjoke.ui.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import xh.org.video.android_ppjoke.R
+import androidx.paging.ItemKeyedDataSource
+import androidx.paging.PagedList
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.scwang.smartrefresh.layout.api.RefreshLayout
+import xh.org.video.android_ppjoke.model.Feed
+import xh.org.video.android_ppjoke.abs.AbsListFragment
+import xh.org.video.android_ppjoke.ui.MutableDataSource
 import xh.org.video.libannotation.FragmentDestination
 
 @FragmentDestination(pageUrl = "main/tabs/home", isStart = true)
-class HomeFragment : Fragment() {
+class HomeFragment : AbsListFragment<Int, Feed, HomeViewModel>() {
 
-    private lateinit var homeViewModel: HomeViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel.cacheLiveData.observe(HomeFragment@ this,
+            Observer<PagedList<Feed>> {
+                submitList(it)
+            })
+    }
+
+
+    override fun onRefresh(refreshLayout: RefreshLayout) {
+        viewModel.getDataSource()!!.invalidate()
+    }
+
+    override fun onLoadMore(refreshLayout: RefreshLayout) {
+        val feed = mAdapter.currentList!![mAdapter.itemCount - 1]
+        viewModel.loadAfter(feed!!.id, object : ItemKeyedDataSource.LoadCallback<Feed>() {
+            override fun onResult(data: MutableList<Feed>) {
+                val config = mAdapter.currentList!!.config
+                if (data != null && data.size > 0) {
+                    val dataSource = MutableDataSource<Int, Feed>()
+                    dataSource.data.addAll(data)
+                    val pageList = dataSource.buildNewPageList(config)
+                    submitList(pageList)
+                }
+
+            }
         })
-        return root
+
+    }
+
+    override fun getAdapter(): PagedListAdapter<Feed, RecyclerView.ViewHolder> {
+        val feedType =
+            if (arguments == null) "all" else requireArguments().getString("feedType")!!
+        return FeedAdapter(
+            requireContext(),
+            feedType
+        ) as PagedListAdapter<Feed, RecyclerView.ViewHolder>
     }
 }

@@ -28,7 +28,7 @@ open class PPImageView : AppCompatImageView {
     companion object {
         @JvmStatic
         @BindingAdapter(value = ["image_url", "isCircle"], requireAll = false)
-        fun setImageViewUrl(imageView: PPImageView, imageUrl: String, isCircle: Boolean) {
+        fun setImageViewUrl(imageView: PPImageView, imageUrl: String?, isCircle: Boolean) {
             val builder = Glide.with(imageView).load(imageUrl)
             if (isCircle) {
                 builder.transform(CircleCrop())

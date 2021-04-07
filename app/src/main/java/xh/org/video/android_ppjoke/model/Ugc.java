@@ -1,6 +1,8 @@
 package xh.org.video.android_ppjoke.model;
 
-public class Ugc {
+import java.io.Serializable;
+
+public class Ugc implements Serializable {
     /**
      * likeCount : 153
      * shareCount : 0

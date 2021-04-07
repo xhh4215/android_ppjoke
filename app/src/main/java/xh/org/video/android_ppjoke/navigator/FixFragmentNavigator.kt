@@ -11,7 +11,8 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
 import androidx.navigation.fragment.FragmentNavigator
- import java.util.*
+import java.util.*
+
 
 @Navigator.Name("fixfragment")
 class FixFragmentNavigator(
@@ -21,6 +22,7 @@ class FixFragmentNavigator(
 ) :
     FragmentNavigator(mContext, mManager, mContainerId) {
     private val TAG = "FixFragmentNavigator"
+    @ExperimentalStdlibApi
     override fun navigate(
         destination: Destination,
         args: Bundle?,
@@ -29,7 +31,7 @@ class FixFragmentNavigator(
     ): NavDestination? {
         if (mManager.isStateSaved()) {
             Log.i(
-               TAG,
+                TAG,
                 "Ignoring navigate() call: FragmentManager has already"
                         + " saved its state"
             )

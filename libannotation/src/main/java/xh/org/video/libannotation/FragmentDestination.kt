@@ -7,7 +7,10 @@ package xh.org.video.libannotation
  */
 @Target(AnnotationTarget.TYPE, AnnotationTarget.CLASS)
 annotation class FragmentDestination(
+    // 对应的页面地址
     val pageUrl: String,
+    //是否需要登录
     val isLogin: Boolean = false,
+    //是否是默认启动页
     val isStart: Boolean = false
 )

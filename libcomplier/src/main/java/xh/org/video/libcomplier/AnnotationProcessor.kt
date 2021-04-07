@@ -28,8 +28,13 @@ import kotlin.math.abs
     "xh.org.video.libannotation.FragmentDestination"
 )
 class AnnotationProcessor : AbstractProcessor() {
+    //日志打印对象
     private lateinit var messager: Messager
+
+    //文件处理对象
     private lateinit var filer: Filer
+
+    //出事的文件的名称
     private val OUTPUT_FILE_NAME = "destination.json"
 
     /***
@@ -39,22 +44,26 @@ class AnnotationProcessor : AbstractProcessor() {
         super.init(processingEnvironment)
         messager = processingEnvironment.messager
         messager.printMessage(Diagnostic.Kind.NOTE, "注解解析器初始化");
-
         filer = processingEnvironment.filer
     }
 
+    /***
+     * 注解解析的处理类
+     */
     override fun process(
         elements: MutableSet<out TypeElement>,
         roundEnvironment: RoundEnvironment
     ): Boolean {
+        //获取标记类 ActivityDestination注解的元素的集合
         val activityDestinations =
             roundEnvironment.getElementsAnnotatedWith(ActivityDestination::class.java)
-
+        //获取标记类 FragmentDestination注解的元素的集合
         val fragmentDestinations =
             roundEnvironment.getElementsAnnotatedWith(FragmentDestination::class.java)
 
         if (fragmentDestinations.isNotEmpty() || activityDestinations.isNotEmpty()) {
             val destMap = HashMap<String, JSONObject>()
+            //具体的处理注解的方法
             handleDestination(fragmentDestinations, FragmentDestination::class.java, destMap)
             handleDestination(activityDestinations, ActivityDestination::class.java, destMap)
             var fileOutputStream: FileOutputStream? = null

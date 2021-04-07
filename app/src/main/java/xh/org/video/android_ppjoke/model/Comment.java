@@ -1,6 +1,8 @@
 package xh.org.video.android_ppjoke.model;
 
-public class Comment {
+import java.io.Serializable;
+
+public class Comment implements Serializable {
 
     /**
      * id : 784
@@ -21,12 +23,13 @@ public class Comment {
      * ugc : {"likeCount":153,"shareCount":0,"commentCount":4454,"hasFavorite":false,"hasLiked":true}
      */
 
+
     public int id;
     public long itemId;
     public long commentId;
     public long userId;
     public int commentType;
-    public int createTime;
+    public long createTime;
     public int commentCount;
     public int likeCount;
     public String commentText;

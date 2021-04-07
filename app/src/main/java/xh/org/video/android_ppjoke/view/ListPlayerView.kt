@@ -46,7 +46,7 @@ class ListPlayerView : FrameLayout {
         mCategory = category
         mVideoUrl = videoUrl
         cover.setImageViewUrl(cover, coverUrl, false)
-         if (widthPx < heightPx) {
+        if (widthPx < heightPx) {
             blur.setBlurImageUrl(coverUrl, 10)
             blur.visibility = View.VISIBLE
         } else {
@@ -70,9 +70,8 @@ class ListPlayerView : FrameLayout {
 
         if (widthPx >= heightPx) {
             coverWidth = widthMax
-            layoutHeight = (widthPx / (heightPx * 1.0 / widthMax)).toInt()
-            coverHeight = (widthPx / (heightPx * 1.0 / widthMax)).toInt()
-
+            layoutHeight = (heightPx / (widthPx * 1.0 / widthMax)).toInt()
+            coverHeight = (heightPx / (widthPx * 1.0 / widthMax)).toInt()
         } else {
             layoutHeight = heightMax
             coverHeight = heightMax
